@@ -4,6 +4,8 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -15,11 +17,27 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html
+      lang="en"
+      className={`${GeistSans.variable}`}
+      suppressHydrationWarning
+    >
       <body>
-        <main className="flex min-h-screen flex-col items-center justify-center text-white">
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>
+            <main className="flex min-h-screen flex-col items-center justify-center">
+              {children}
+              <div className="absolute bottom-8 right-8">
+                <ModeToggle />
+              </div>
+            </main>
+          </TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
