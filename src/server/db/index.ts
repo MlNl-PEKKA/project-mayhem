@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "@supabase/supabase-js";
-import { env } from "~/env";
+import { env } from "@/env";
 import type { DB } from "./schema";
 import { createServerClient } from "@supabase/ssr";
 import type { TRPCCreateContextOptions } from "../api/trpc";
